@@ -4,4 +4,4 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse("Gyros Of Hummus test site.")
+    return HttpResponse("Gyros Of Hummus test site. Trying to organize webhooks...")
