@@ -11,14 +11,14 @@ web:
     env_file: .env
     environment:
         DEBUG: 'false'
-    command: /usr/local/bin/gunicorn gyros_of_hummus.wsgi:application -w 2 -b :8000 --reload
+    command: /usr/local/bin/gunicorn gyros_of_hummus.wsgi:application -w 2 -b :8000
 
 nginx:
     restart: always
     build: ./nginx/
     ports: 
         - "80:80"
-    volumes:
+    voluumes:
         - "/www/static"
     volumes_from:
         - web
