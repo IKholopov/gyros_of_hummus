@@ -17,6 +17,5 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 urlpatterns = [
-    screwUp()
     url(r'', include('dummy.urls')),
 ]
