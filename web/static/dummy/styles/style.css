@@ -1,0 +1,24 @@
+#background{
+    top:0;
+    position: absolute;
+    z-index: -1;
+}
+
+#gyro {
+    position: absolute;
+    bottom: 0px;
+    text-align: center;
+    width:100%;
+}
+#gyro img {
+    width: 50%;
+}
+
+h1 {
+    width: 100%;
+    font-size: 64pt;
+    position: absolute;
+    top: 40%;
+    text-align: center;
+    color: aliceblue;
+}

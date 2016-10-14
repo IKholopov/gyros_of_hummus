@@ -54,7 +54,7 @@ ROOT_URLCONF = 'gyros_of_hummus.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['dummy/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
