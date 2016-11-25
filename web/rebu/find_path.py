@@ -1,5 +1,10 @@
 
 import itertools
+import json
+import logging
+
+from .serializers import MapLayerSerializer
+from .models import MapLayer
 
 EMPTY = 0
 WALL = 1
@@ -39,6 +44,8 @@ def extract_path(previous, to_floor, to_position_y, to_position_x):
 
     return path[::-1]
 
+def compare_floors(floor):
+    return floor['floor']
 
 def find_shortest_path_in_locals(from_floor, from_position, to_floor, to_position):
     if from_position == to_position and from_floor == to_floor:
@@ -47,15 +54,12 @@ def find_shortest_path_in_locals(from_floor, from_position, to_floor, to_positio
     from_position_y, from_position_x = from_position
     to_position_y, to_position_x = to_position
 
-    floors = [
-        [[0, 0, 0],
-         [1, 1, 0],
-         [2, 0, 0]],
-        [[0, 0, 0],
-         [0, 1, 0],
-         [2, 1, 0]]
-    ]
-
+    layers = MapLayer.objects.all()
+    serializer = MapLayerSerializer(layers, many=True)
+    sorted_floors = serializer.data
+    sorted_floors.sort(key=compare_floors)
+    floors = [json.loads(floor['field']) for floor in sorted_floors]
+    logging.error(floors)
     dpos = [-1, 0, 1]
 
     is_visited = [[[False for x in row] for row in floor] for floor in floors]

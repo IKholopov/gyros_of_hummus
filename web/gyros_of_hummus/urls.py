@@ -18,4 +18,5 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'', include('dummy.urls')),
+    url(r'', include('rebu.urls')),
 ]

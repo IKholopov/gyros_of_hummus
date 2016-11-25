@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from web.rebu.models import MapLayer
+from .models import MapLayer
 
 
 class MapLayerSerializer(serializers.Serializer):
