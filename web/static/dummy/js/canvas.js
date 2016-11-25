@@ -31,7 +31,6 @@ function addParticles() {
         }
     }
     added_particles += 2*N;
-
 }
 
 function drawParticle(x, y, size) {
