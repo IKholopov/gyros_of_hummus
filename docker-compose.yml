@@ -3,6 +3,8 @@ web:
     build: ./web
     expose:
         - "8000"
+    ports:
+        - "90:90"
     links:
         - postgres:postgres
     volumes:
