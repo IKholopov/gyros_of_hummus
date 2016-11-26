@@ -17,8 +17,8 @@ class PathNotFoundException(Exception):
 
 def convert_coordinates_from_geo_to_local(geo_position):
     local_position = [0,0]
-    local_position[0] = int(geo_position[0])
     local_position[1] = int(geo_position[1])
+    local_position[0] = int(geo_position[0])
     return local_position
 
 
