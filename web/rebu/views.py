@@ -10,7 +10,7 @@ from . import models
 from .livesession import iterate
 from .find_path import find_shortest_path
 from .models import MapLayer, Office, Scooter, Route
-from .serializers import MapLayerSerializer, OfficeSerializer, RouteSerializer
+from .serializers import MapLayerSerializer, OfficeSerializer, RouteSerializer, ScooterSerializer
 
 
 def editor(request):
@@ -122,9 +122,10 @@ def iterate_step(request):
         path = json.loads(route.path)
         speed = 0.2
         tick = 3
-        new_pose, new_path = iterate([scooter['x_coord'], scooter['y_coord']], path, speed, tick)
+        new_pose, new_floor, new_path = iterate([scooter['x_coord'], scooter['y_coord']], scooter['floor'], path, speed, tick)
         if len(new_path) == 0:
             scooter['status'] = models.SCOOTER_STATUS_FREE
+            scooter['route_id'] = None
             route.delete()
         else:
             route.path = json.dumps(new_path)
@@ -132,7 +133,26 @@ def iterate_step(request):
 
         scooter['x_coord'] = new_pose[0]
         scooter['y_coord'] = new_pose[1]
+        scooter['floor'] = new_floor
         logging.error(scooters.values())
-        Scooter.objects.update_or_create(scooter)
+        sc = Scooter.objects.filter(id=scooter['id'])
+        sc.update_or_create(scooter)
     scooters.update()
     return Response(status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def scooters_data(request):
+    scooters = Scooter.objects.all()
+    serializer = ScooterSerializer(scooters, many=True)
+    data = serializer.data
+    for scooter in data:
+        scooter['route'] = RouteSerializer(Route.objects.get(id=scooter['route'])).data
+    return Response(data, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def add_scooters(request):
+    serializer = ScooterSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
