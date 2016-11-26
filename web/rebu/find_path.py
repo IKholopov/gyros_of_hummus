@@ -67,7 +67,7 @@ def compare_floors(floor):
 
 
 def get_floors():
-    layers = MapLayer.objects.all()
+    layers = MapLayer.objects.get(title="Kupolen")
     serializer = MapLayerSerializer(layers, many=True)
     sorted_floors = serializer.data
     sorted_floors.sort(key=compare_floors)

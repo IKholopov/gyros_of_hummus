@@ -1,3 +1,4 @@
+import json
 import logging
 
 from django.shortcuts import render
@@ -5,9 +6,11 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework.response import Response
 
+from . import models
+from .livesession import iterate
 from .find_path import find_shortest_path
-from .models import MapLayer, Office
-from .serializers import MapLayerSerializer, OfficeSerializer
+from .models import MapLayer, Office, Scooter, Route
+from .serializers import MapLayerSerializer, OfficeSerializer, RouteSerializer
 
 
 def editor(request):
@@ -90,3 +93,46 @@ def navigate(request):
         return Response(status=status.HTTP_404_NOT_FOUND)
     return Response(find_shortest_path(int(floor_from), (float(y_from), float(x_from)),
                                        int(floor_to), (float(y_to), float(x_to))), status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def create_route(request):
+    logging.error(request.POST)
+    route = request.POST.get('path', '')
+    if not route:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+    scooters = Scooter.objects.filter(status__in = [models.SCOOTER_STATUS_FREE, models.SCOOTER_STATUS_RETURNING])
+    if len(scooters.values()) == 0:
+        return Response("All resources are busy", status=status.HTTP_408_REQUEST_TIMEOUT)
+    serializer = RouteSerializer(data=request.data)
+    if serializer.is_valid():
+        instance = serializer.save()
+        logging.error(instance)
+        sc = Scooter.objects.get(id=scooters.values()[0]['id'])
+        sc.route_id = instance.id
+        sc.status = models.SCOOTER_STATUS_BUSY
+        sc.save()
+        return Response(status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def iterate_step(request):
+    scooters = Scooter.objects.filter(status=models.SCOOTER_STATUS_BUSY)
+    for scooter in scooters.values():
+        route = Route.objects.get(id=scooter['route_id'])
+        path = json.loads(route.path)
+        speed = 0.2
+        tick = 3
+        new_pose, new_path = iterate([scooter['x_coord'], scooter['y_coord']], path, speed, tick)
+        if len(new_path) == 0:
+            scooter['status'] = models.SCOOTER_STATUS_FREE
+            route.delete()
+        else:
+            route.path = json.dumps(new_path)
+            route.save()
+
+        scooter['x_coord'] = new_pose[0]
+        scooter['y_coord'] = new_pose[1]
+        logging.error(scooters.values())
+        Scooter.objects.update_or_create(scooter)
+    scooters.update()
+    return Response(status=status.HTTP_200_OK)

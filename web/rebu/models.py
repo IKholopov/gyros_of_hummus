@@ -25,8 +25,9 @@ SCOOTER_STATUS_RETURNING = 2
 class Scooter(models.Model):
     x_coord = models.FloatField(blank=False)
     y_coord = models.FloatField(blank=False)
+    floor = models.IntegerField(blank=False)
     status = models.IntegerField(blank=False)
-    route = models.ForeignKey(Route, on_delete=models.CASCADE)
+    route = models.ForeignKey(Route, on_delete=models.CASCADE, blank=True, null=True)
 
 class Station(models.Model):
     x_coord = models.FloatField(blank=False)

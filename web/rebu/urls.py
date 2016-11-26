@@ -9,6 +9,6 @@ urlpatterns = [
     url(r'^edit_floor/$', views.editor, name='index'),
     url(r'^office/$', views.office_list, name='index'),
     url(r'^office/(?P<name>.*)$', views.office, name='index'),
-    url(r'^debug_start/$', views.debug_start, name='index'),
-    url(r'^debug_count/$', views.debug_count, name='index'),
+    url(r'^iterate/$', views.iterate_step, name='index'),
+    url(r'^create_route/$', views.create_route, name='index'),
 ]

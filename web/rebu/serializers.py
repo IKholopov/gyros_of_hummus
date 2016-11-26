@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import MapLayer, Office
+from .models import MapLayer, Office, Route
 
 
 class MapLayerSerializer(serializers.Serializer):
@@ -24,6 +24,13 @@ class MapLayerSerializer(serializers.Serializer):
         instance.a_align_y = validated_data.get('a_align_y', instance.a_align_y)
         instance.b_align_x = validated_data.get('b_align_x', instance.b_align_x)
         instance.b_align_y = validated_data.get('b_align_y', instance.b_align_y)
+
+class RouteSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    path = serializers.CharField(required=True)
+
+    def create(selfself, validated_data):
+        return Route.objects.create(**validated_data)
 
 class OfficeSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
