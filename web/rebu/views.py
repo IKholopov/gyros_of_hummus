@@ -5,8 +5,8 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework.response import Response
 
-from .find_path import find_shortest_path, PathNotFoundException
-from .models import MapLayer, Office, Scooter
+from .find_path import find_shortest_path
+from .models import MapLayer, Office
 from .serializers import MapLayerSerializer, OfficeSerializer
 
 
@@ -88,16 +88,5 @@ def navigate(request):
     y_to = request.GET.get('y_to')
     if not floor_from or not floor_to or not x_from or not y_from or not x_to or not y_to:
         return Response(status=status.HTTP_404_NOT_FOUND)
-    try:
-        response = Response(find_shortest_path(int(floor_from), (float(x_from), float(y_from)),
-                                       int(floor_to), (float(x_to), float(y_to))), status=status.HTTP_200_OK)
-    except:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-    return response
-
-#@api_view(['GET'])
-#def iterate_session(request):
- #   if request == 'GET':
-  #      scooters = Scooter.objects.all().values()
-   #     for
-    #return Response(status=status.HTTP_200_OK)
+    return Response(find_shortest_path(int(floor_from), (float(y_from), float(x_from)),
+                                       int(floor_to), (float(y_to), float(x_to))), status=status.HTTP_200_OK)
