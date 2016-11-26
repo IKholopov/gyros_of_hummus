@@ -1,4 +1,6 @@
 import logging
+
+from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework.response import Response
@@ -8,6 +10,9 @@ from .models import MapLayer
 from .serializers import MapLayerSerializer
 
 
+
+def editor(request):
+    return render(request, 'editor.html')
 
 @api_view(['GET', 'POST'])
 def map_layer_list(request):

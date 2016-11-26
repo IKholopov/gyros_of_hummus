@@ -8,10 +8,10 @@ class MapLayerSerializer(serializers.Serializer):
     title = serializers.CharField(required=True, allow_blank=False, max_length=128)
     field = serializers.CharField(required=True, allow_blank=False)
     floor = serializers.IntegerField(required=True)
-    a_align_x = serializers.FloatField(required=True)
-    a_align_y = serializers.FloatField(required=True)
-    b_align_x = serializers.FloatField(required=True)
-    b_align_y = serializers.FloatField(required=True)
+    a_align_x = serializers.FloatField(required=False)
+    a_align_y = serializers.FloatField(required=False)
+    b_align_x = serializers.FloatField(required=False)
+    b_align_y = serializers.FloatField(required=False)
 
     def create(self, validated_data):
         return MapLayer.objects.create(**validated_data)

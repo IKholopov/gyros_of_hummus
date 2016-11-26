@@ -1,0 +1,34 @@
+
+#container {
+  /*width: 50em;
+  height: 50em;*/
+  position: relative;
+}
+#image {
+ position: absolute;
+  top: 0;
+  left: 0;
+}
+#paint {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.mark {
+    width: 1em;
+    height: 1em;
+}
+
+#yellow_marker {
+    background-color: yellow;
+}
+
+#blue_marker {
+    background-color: blue;
+}
+
+#red_marker {
+    background-color: red;
+}
