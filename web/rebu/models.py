@@ -15,6 +15,19 @@ class Office(models.Model):
     y_coord = models.IntegerField(blank=False)
     floor = models.IntegerField(blank=False)
 
+class Route(models.Model):
+    path = models.TextField()
+
+SCOOTER_STATUS_FREE = 0
+SCOOTER_STATUS_BUSY = 1
+SCOOTER_STATUS_RETURNING = 2
+
+class Scooter(models.Model):
+    x_coord = models.FloatField(blank=False)
+    y_coord = models.FloatField(blank=False)
+    status = models.IntegerField(blank=False)
+    route = models.ForeignKey(Route, on_delete=models.CASCADE)
+
 class Station(models.Model):
     x_coord = models.FloatField(blank=False)
     y_coord = models.FloatField(blank=False)

@@ -6,7 +6,7 @@ from rest_framework import status
 from rest_framework.response import Response
 
 from .find_path import find_shortest_path, PathNotFoundException
-from .models import MapLayer, Office
+from .models import MapLayer, Office, Scooter
 from .serializers import MapLayerSerializer, OfficeSerializer
 
 
@@ -95,3 +95,9 @@ def navigate(request):
         return Response(status=status.HTTP_404_NOT_FOUND)
     return response
 
+#@api_view(['GET'])
+#def iterate_session(request):
+ #   if request == 'GET':
+  #      scooters = Scooter.objects.all().values()
+   #     for
+    #return Response(status=status.HTTP_200_OK)
