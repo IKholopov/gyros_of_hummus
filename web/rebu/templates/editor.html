@@ -11,10 +11,13 @@
     <input type="file" onchange="previewFile()"><br>
     <input type="button" onclick="renderGrid()" value="Render Grid"><br>
     <div id="marker">
-        <a class="mark" id="red_marker" onclick="switchMarker(0)">Wall</a>
-        <a class="mark" id="blue_marker" onclick="switchMarker(1)">Road</a>
+        <a class="mark" id="red_marker" onclick="switchMarker(1)">Wall</a>
+        <a class="mark" id="blue_marker" onclick="switchMarker(0)">Road</a>
         <a class="mark" id="yellow_marker" onclick="switchMarker(2)">Lift</a>
+        <a class="mark" id="green_marker" onclick="switchMarker(3)">Office</a>
+        <input id="office_name" value="20"/>
     </div>
+    <div id="office_list"></div>
     <input id="width" value="20"/>
     <input id="height" value="20"/>
     <input id="title" value="Floor title"/>
@@ -25,7 +28,7 @@
     <input id="b_y" value="1"/>
     <input type="button" value="Commit!" onclick="sendmap()"/>
     <div id="container">
-        <img id="image" src="" alt="Image preview..." >
+        <img draggable="false" id="image" src="" onmousedown="test1()" onmouseup="test()" alt="Image preview..." >
         <div id="paint">
             <div class=".ghost-select"><span></span></div>
         </div>

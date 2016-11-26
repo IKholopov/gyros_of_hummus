@@ -6,13 +6,41 @@ from rest_framework import status
 from rest_framework.response import Response
 
 from .find_path import find_shortest_path
-from .models import MapLayer
-from .serializers import MapLayerSerializer
-
+from .models import MapLayer, Office
+from .serializers import MapLayerSerializer, OfficeSerializer
 
 
 def editor(request):
     return render(request, 'editor.html')
+
+@api_view(['GET', 'POST'])
+def office_list(request):
+    if request.method == 'GET':
+        offices = Office.objects.all()
+        serializer = OfficeSerializer(offices, many=True)
+        return Response(serializer.data)
+
+    if request.method == 'POST':
+        serializer = OfficeSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'DELETE'])
+def office(request, name):
+    try:
+        office = Office.objects.get(name=name)
+    except Office.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = OfficeSerializer(office)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    if request.method == 'DELETE':
+        office.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET', 'POST'])
 def map_layer_list(request):

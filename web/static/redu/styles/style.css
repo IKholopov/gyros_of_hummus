@@ -5,9 +5,14 @@
   position: relative;
 }
 #image {
- position: absolute;
-  top: 0;
-  left: 0;
+    position: absolute;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    top: 0;
+    left: 0;
 }
 #paint {
   width: 100%;
@@ -31,4 +36,8 @@
 
 #red_marker {
     background-color: red;
+}
+
+#green_marker {
+    background-color: green;
 }
