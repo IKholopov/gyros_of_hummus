@@ -1,4 +1,14 @@
 
+li{
+    list-style: none;
+}
+
+li input{
+    position: absolute;
+    left:10em;
+
+}
+
 #container {
   /*width: 50em;
   height: 50em;*/
@@ -22,7 +32,7 @@
   left: 0;
 }
 .mark {
-    width: 1em;
+    width: 2.5em;
     height: 1em;
 }
 #blanket {
@@ -34,17 +44,17 @@
 }
 
 #yellow_marker {
-    background-color: yellow;
+    background-color: yellow !important;
 }
 
 #blue_marker {
-    background-color: blue;
+    background-color: blue !important;
 }
 
 #red_marker {
-    background-color: red;
+    background-color: red !important;
 }
 
 #green_marker {
-    background-color: green;
+    background-color: green !important;
 }

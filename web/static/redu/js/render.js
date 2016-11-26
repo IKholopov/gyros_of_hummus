@@ -38,7 +38,8 @@ function colorForMarker() {
         var file    = document.querySelector('input[type=file]').files[0]; //sames as here
         var reader  = new FileReader();
         reader.onloadend = function () {
-               preview.src = reader.result;
+                preview.src = reader.result;
+                renderGrid();
         }
 
         if (file) {
@@ -46,7 +47,6 @@ function colorForMarker() {
         } else {
             preview.src = "";
         }
-
 
     }
     function switchMarker(mark) {
