@@ -39,7 +39,7 @@ def convert_coordinates_from_local_to_geo(local_position):
 
 
 def convert_path_from_local_to_geo(local_path):
-    return [convert_coordinates_from_local_to_geo(crd) for crd in local_path]
+    return [(floor, convert_coordinates_from_local_to_geo(crd)) for floor, crd in local_path]
 
 
 def extract_path(previous, to_floor, to_position_y, to_position_x):
@@ -102,7 +102,7 @@ def find_shortest_path_in_locals(floors, from_floor, from_position, to_floor, to
     while len(queue) > 0:
         distance, floor, position_y, position_x = heapq.heappop(queue)
 
-        # print(distance, floor, position_y, position_x)
+        # logging.error('{} {} {} {}'.format(distance, floor, position_y, position_x))
 
         if distance > min_distance[floor][position_y][position_x] + 1e-6:
             continue
@@ -147,7 +147,7 @@ def find_shortest_path_in_locals(floors, from_floor, from_position, to_floor, to
             if next_position_x < 0 or next_position_x >= len(floors[floor][next_position_y]):
                 continue
 
-            if min_distance[floor][next_position_y][next_position_x] < next_distance:
+            if min_distance[floor][next_position_y][next_position_x] < next_distance + 1e-6:
                 continue
 
             if floors[floor][next_position_y][next_position_x] == WALL:
@@ -156,6 +156,7 @@ def find_shortest_path_in_locals(floors, from_floor, from_position, to_floor, to
             min_distance[floor][next_position_y][next_position_x] = next_distance
             previous[floor][next_position_y][next_position_x] = (floor, position_y, position_x)
             heapq.heappush(queue, (next_distance, floor, next_position_y, next_position_x))
+
 
     if finish_point_x != -1:
         return extract_path(previous, to_floor, finish_point_y, finish_point_x)

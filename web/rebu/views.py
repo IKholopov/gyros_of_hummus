@@ -88,5 +88,5 @@ def navigate(request):
     y_to = request.GET.get('y_to')
     if not floor_from or not floor_to or not x_from or not y_from or not x_to or not y_to:
         return Response(status=status.HTTP_404_NOT_FOUND)
-    return Response(find_shortest_path(int(floor_from), (float(x_from), float(y_from)),
-                                       int(floor_to), (float(x_to), float(y_to))), status=status.HTTP_200_OK)
+    return Response(find_shortest_path(int(floor_from), (float(y_from), float(x_from)),
+                                       int(floor_to), (float(y_to), float(x_to))), status=status.HTTP_200_OK)
