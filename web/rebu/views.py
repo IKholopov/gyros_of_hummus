@@ -145,8 +145,8 @@ def iterate_step(request):
             scooter['status'] = models.SCOOTER_STATUS_RETURNING
             station = Station.objects.get(id=scooter['home_station_id'])
             logging.error(station.y_coord)
-            path = find_shortest_path(scooter['floor'], [scooter['y_coord'], scooter['x_coord']],
-                                      station.floor, [station.y_coord, station.x_coord])
+            path = find_shortest_path(scooter['floor'], (scooter['y_coord'], scooter['x_coord']),
+                                      station.floor, (station.y_coord, station.x_coord))
 
             path_serializer = RouteSerializer(data={'path': json.dumps(path), 'user_id': 1, 'status': models.ROUTE_STATUS_RUNNING})
             if path_serializer.is_valid():
