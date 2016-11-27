@@ -1,6 +1,15 @@
+div {
+    align-items: center;
+}
+
+body {
+    background-color: #4db6ac;
+}
 
 li{
     list-style: none;
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 
 li input{
@@ -43,7 +52,10 @@ li input{
     z-index: 9000;
     background-color: #4db6ac;
 }
-
+#commit {
+    margin-top: 2em;
+    background-color: #eeff41 !important;
+}
 #yellow_marker {
     background-color: yellow !important;
 }
