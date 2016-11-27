@@ -210,7 +210,7 @@ def add_scooters(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'POST', 'DELETE'])
 def station(request):
     if request.method == 'GET':
         stations = Station.objects.all()
@@ -223,3 +223,7 @@ def station(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    if request.method == 'DELETE':
+        stations = Station.objects.all()
+        stations.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
