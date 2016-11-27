@@ -23,18 +23,25 @@
         <input id="office_name" value="B-65"/>
     </div>
     <div id="office_list"></div>
+    <div class="blk">
     <ul class="">
         <li>Width: <input id="width" value="40"/></li>
         <li>Height: <input id="height" value="40"/></li>
         <li>Title: <input id="title" value="Floor title"/>
         <li>Floor <input id="floor" value="0"/></li>
+    </ul>
+    </div>
+    <div class="blk">
+    <ul>
         <li>Align:</li>
         <li>top-left x<input id="a_x" value="0"/></li>
         <li>top-left y<input id="a_y" value="0"/></li>
         <li>bottom-right x<input id="b_x" value="1"/></li>
         <li>bottom-right y<input id="b_y" value="1"/></li>
-        <li><input type="button" class="button" id="commit" value="Commit!" onclick="sendmap()"/>
+
     </ul>
+    </div>
+    <div ><ul><li><input type="button" class="button" id="commit" value="Commit!" onclick="sendmap()"/></li></ul></div>
 
     <div id="container">
         <img draggable="false" id="image" src="" alt="Image preview..." >

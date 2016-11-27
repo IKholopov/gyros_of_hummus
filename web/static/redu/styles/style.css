@@ -2,19 +2,25 @@ div {
     align-items: center;
 }
 
+.blk {
+    width: 25%;
+    display: inline-block;
+}
+
 body {
     background-color: #4db6ac;
 }
 
 li{
     list-style: none;
-    margin-top: 1em;
-    margin-bottom: 1em;
+
+    position: relative;
+    margin-left:2em;
+    margin-right:8em;
 }
 
 li input{
-    position: absolute;
-    left:12em;
+    display: inline-block;
 
 }
 

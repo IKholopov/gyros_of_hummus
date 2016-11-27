@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^office/$', views.office_list, name='index'),
     url(r'^office/(?P<name>.*)$', views.office, name='index'),
     url(r'^iterate/$', views.iterate_step, name='index'),
+    url(r'^reset/$', views.reset_routes, name='index'),
     url(r'^create_route/$', views.create_route, name='index'),
     url(r'^scooters_data/$', views.scooters_data, name='index'),
     url(r'^add_scooters/$', views.add_scooters, name='index'),

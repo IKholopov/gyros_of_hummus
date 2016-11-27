@@ -227,3 +227,11 @@ def station(request):
         stations = Station.objects.all()
         stations.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET'])
+def reset_routes(request):
+    routes = Route.objects.all()
+    routes.delete()
+    scooters = Scooter.objects.all()
+    scooters.update(status=models.SCOOTER_STATUS_FREE)
+    return Response(status=status.HTTP_204_NO_CONTENT)
