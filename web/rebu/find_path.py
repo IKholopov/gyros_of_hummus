@@ -182,7 +182,7 @@ def find_shortest_path_in_locals(from_floor, from_position, to_floor, to_positio
 
         distance = min_distance[floor][position_y][position_x]
 
-        logging.error((distance, floor, position_y, position_x))
+        # logging.error((distance, floor, position_y, position_x))
 
         # if distance > min_distance[floor][position_y][position_x] + 1e-6:
         if distance < 0:
