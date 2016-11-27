@@ -251,6 +251,9 @@ def find_shortest_path_in_locals(from_floor, from_position, to_floor, to_positio
 
 
 def find_shortest_path(from_floor, from_position, to_floor, to_position):
+    if (from_floor, from_position, to_floor, to_position) in cached_queries:
+        return cached_queries[(from_floor, from_position, to_floor, to_position)]
+
     from_local_position = convert_coordinates_from_geo_to_local(from_position)
     logging.error(from_position)
     logging.error(from_local_position)
@@ -259,9 +262,14 @@ def find_shortest_path(from_floor, from_position, to_floor, to_position):
         from_floor, from_local_position, to_floor, to_local_position)
 
     shortest_path = convert_path_from_local_to_geo(local_shortest_path)
+
+    cached_queries[(from_floor, from_position, to_floor, to_position)] = shortest_path
     return shortest_path
     # return local_shortest_path
 
+
+
+cached_queries = {}
 
 floors = get_floors()
 
