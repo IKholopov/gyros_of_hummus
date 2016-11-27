@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from . import models
 from .livesession import iterate
 from .find_path import find_shortest_path
-from .models import MapLayer, Office, Scooter, Route
+from .models import MapLayer, Office, Scooter, Route, Station
 from .serializers import MapLayerSerializer, OfficeSerializer, RouteSerializer, ScooterSerializer
 
 
@@ -83,6 +83,10 @@ def map_layer(request, floor):
 
 @api_view(['GET'])
 def navigate(request):
+    user_id = request.GET.get('user_id')
+    if user_id:
+        routes = Route.objects.filter(user_id)
+        routes.delete()
     floor_from = request.GET.get('floor_from')
     floor_to = request.GET.get('floor_to')
     x_from = request.GET.get('x_from')
@@ -91,8 +95,14 @@ def navigate(request):
     y_to = request.GET.get('y_to')
     if not floor_from or not floor_to or not x_from or not y_from or not x_to or not y_to:
         return Response(status=status.HTTP_404_NOT_FOUND)
-    return Response(find_shortest_path(int(floor_from), (float(y_from), float(x_from)),
-                                       int(floor_to), (float(y_to), float(x_to))), status=status.HTTP_200_OK)
+    path = find_shortest_path(int(floor_from), (float(y_from), float(x_from)),
+                                       int(floor_to), (float(y_to), float(x_to)))
+    data = { 'path': path, 'user_id': user_id}
+    serializer = RouteSerializer(data=data)
+    serializer.save()
+    return Response(path, status=status.HTTP_200_OK)
+
+@api_view()
 
 @api_view(['POST'])
 def create_route(request):
@@ -100,13 +110,13 @@ def create_route(request):
     route = request.POST.get('path', '')
     if not route:
         return Response(status=status.HTTP_400_BAD_REQUEST)
-    scooters = Scooter.objects.filter(status__in = [models.SCOOTER_STATUS_FREE, models.SCOOTER_STATUS_RETURNING])
-    if len(scooters.values()) == 0:
-        return Response("All resources are busy", status=status.HTTP_408_REQUEST_TIMEOUT)
     serializer = RouteSerializer(data=request.data)
+    scooters = Scooter.objects.filter(status__in=[models.SCOOTER_STATUS_FREE], )
     if serializer.is_valid():
         instance = serializer.save()
-        logging.error(instance)
+    if len(scooters.values()) == 0:
+        return Response("All resources are busy", status=status.HTTP_201_CREATED)
+    else:
         sc = Scooter.objects.get(id=scooters.values()[0]['id'])
         sc.route_id = instance.id
         sc.status = models.SCOOTER_STATUS_BUSY
@@ -124,6 +134,33 @@ def iterate_step(request):
         tick = 3
         new_pose, new_floor, new_path = iterate([scooter['x_coord'], scooter['y_coord']], scooter['floor'], path, speed, tick)
         if len(new_path) == 0:
+            scooter['status'] = models.SCOOTER_STATUS_RETURNING
+            station = Station.objects.get(id=scooter['home_station_id'])
+            path = find_shortest_path(scooter['floor'], [scooter['x_coord'], scooter['y_coord']],
+                                      station.floor, [station.x_coord, station.y_coord])
+            path_serializer = RouteSerializer(data={'path': path, 'user_id':1})
+            inst = path_serializer.save()
+            scooter['route_id'] = inst.id
+            route.delete()
+        else:
+            route.path = json.dumps(new_path)
+            route.save()
+
+        scooter['x_coord'] = new_pose[0]
+        scooter['y_coord'] = new_pose[1]
+        scooter['floor'] = new_floor
+
+        sc = Scooter.objects.filter(id=scooter['id'])
+        sc.update_or_create(scooter)
+    scooters.update()
+    scooters = scooters = Scooter.objects.filter(status=models.SCOOTER_STATUS_RETURNING)
+    for scooter in scooters.values():
+        route = Route.objects.get(id=scooter['route_id'])
+        path = json.loads(route.path)
+        speed = 0.2
+        tick = 3
+        new_pose, new_floor, new_path = iterate([scooter['x_coord'], scooter['y_coord']], scooter['floor'], path, speed, tick)
+        if len(new_path) == 0:
             scooter['status'] = models.SCOOTER_STATUS_FREE
             scooter['route_id'] = None
             route.delete()
@@ -134,7 +171,7 @@ def iterate_step(request):
         scooter['x_coord'] = new_pose[0]
         scooter['y_coord'] = new_pose[1]
         scooter['floor'] = new_floor
-        logging.error(scooters.values())
+
         sc = Scooter.objects.filter(id=scooter['id'])
         sc.update_or_create(scooter)
     scooters.update()
@@ -146,13 +183,15 @@ def scooters_data(request):
     serializer = ScooterSerializer(scooters, many=True)
     data = serializer.data
     for scooter in data:
-        scooter['route'] = RouteSerializer(Route.objects.get(id=scooter['route'])).data
+        if scooter['route']:
+            scooter['route'] = RouteSerializer(Route.objects.get(id=scooter['route'])).data
     return Response(data, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 def add_scooters(request):
-    serializer = ScooterSerializer(data=request.data)
+    data = request.POST.copy()
+    serializer = ScooterSerializer(data=data)
     if serializer.is_valid():
-        serializer.save()
+        serializer.save(home_station=Station.objects.get(floor=data['floor']))
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

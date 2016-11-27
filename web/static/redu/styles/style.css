@@ -5,7 +5,7 @@ li{
 
 li input{
     position: absolute;
-    left:10em;
+    left:12em;
 
 }
 
@@ -32,7 +32,8 @@ li input{
   left: 0;
 }
 .mark {
-    width: 2.5em;
+    text-align: center;
+    width: 3em;
     height: 1em;
 }
 #blanket {

@@ -28,6 +28,7 @@ class MapLayerSerializer(serializers.Serializer):
 class RouteSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     path = serializers.CharField(required=True)
+    user_id = serializers.IntegerField()
 
     def create(selfself, validated_data):
         return Route.objects.create(**validated_data)
@@ -39,6 +40,7 @@ class ScooterSerializer(serializers.Serializer):
     floor = serializers.FloatField(required=True)
     status = serializers.IntegerField(required=True)
     route = serializers.PrimaryKeyRelatedField(read_only=True)
+    home_station = serializers.PrimaryKeyRelatedField(read_only=True)
 
     def create(self, validated_data):
         return Scooter.objects.create(**validated_data)

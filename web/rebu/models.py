@@ -17,6 +17,13 @@ class Office(models.Model):
 
 class Route(models.Model):
     path = models.TextField()
+    user_id = models.IntegerField()
+
+
+class Station(models.Model):
+    x_coord = models.FloatField(blank=False)
+    y_coord = models.FloatField(blank=False)
+    floor = models.IntegerField(blank=False)
 
 SCOOTER_STATUS_FREE = 0
 SCOOTER_STATUS_BUSY = 1
@@ -28,8 +35,4 @@ class Scooter(models.Model):
     floor = models.IntegerField(blank=False)
     status = models.IntegerField(blank=False, default=SCOOTER_STATUS_FREE)
     route = models.ForeignKey(Route, on_delete=models.CASCADE, blank=True, null=True)
-
-class Station(models.Model):
-    x_coord = models.FloatField(blank=False)
-    y_coord = models.FloatField(blank=False)
-    floor = models.IntegerField(blank=False)
+    home_station = models.ForeignKey(Station, null=True)
