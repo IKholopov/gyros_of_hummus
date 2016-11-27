@@ -99,10 +99,9 @@ def relax_path(path):
         while r < len(path) and path[l][0] == path[r][0] and \
             no_intersections(path[l][0], path[l][1][0], path[l][1][1], path[r][1][0], path[r][1][1]):
             r += 1
+        if new_path[-1] != path[r - 1]:
+            new_path.append(path[r - 1])
         l = r
-
-    if new_path[-1] != path[-1]:
-        new_path.append(path[-1])
 
     return new_path
 
@@ -260,8 +259,8 @@ def find_shortest_path(from_floor, from_position, to_floor, to_position):
         from_floor, from_local_position, to_floor, to_local_position)
 
     shortest_path = convert_path_from_local_to_geo(local_shortest_path)
-    # return shortest_path
-    return local_shortest_path
+    return shortest_path
+    # return local_shortest_path
 
 
 floors = get_floors()
