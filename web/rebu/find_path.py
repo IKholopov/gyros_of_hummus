@@ -55,11 +55,11 @@ def extract_path(previous, to_floor, to_position_y, to_position_x):
     current_dy = 0
 
     while current_floor != -1:
-        # if last_dx == current_dx and last_dy == current_dy and (current_dx, current_dy) != (0, 0):
-        #     path[-1] = (current_floor, (current_position_y, current_position_x))
-        # else:
-        #     path.append((current_floor, (current_position_y, current_position_x)))
-        path.append((current_floor, (current_position_y, current_position_x)))
+        if last_dx == current_dx and last_dy == current_dy and (current_dx, current_dy) != (0, 0):
+            path[-1] = (current_floor, (current_position_y, current_position_x))
+        else:
+            path.append((current_floor, (current_position_y, current_position_x)))
+        # path.append((current_floor, (current_position_y, current_position_x)))
 
         next_floor, next_position_y, next_position_x = \
             previous[current_floor][current_position_y][current_position_x]
@@ -70,7 +70,40 @@ def extract_path(previous, to_floor, to_position_y, to_position_x):
 
         current_floor, current_position_y, current_position_x = next_floor, next_position_y, next_position_x
 
+
+    path = relax_path(path)
     return path[::-1]
+
+
+def no_intersections(floor, from_y, from_x, to_y, to_x):
+    points_num = max(1, abs(from_x - to_x) + abs(from_y - to_y))
+
+    for i in range(points_num):
+        cur_x = from_x + int(i * (to_x - from_x) / points_num)
+        cur_y = from_y + int(i * (to_y - from_y) / points_num)
+
+        if floors[floor][cur_y][cur_x] == WALL:
+            return False
+
+    return True
+
+
+def relax_path(path):
+    l = 0
+    r = 1
+
+    new_path = []
+
+    while l < len(path):
+        new_path.append(path[l])
+        while r < len(path) and path[l][0] == path[r][0] and \
+            no_intersections(path[l][0], path[l][1][0], path[l][1][1], path[r][1][0], path[r][1][1]):
+            r += 1
+        if new_path[-1] != path[r - 1]:
+            new_path.append(path[r - 1])
+        l = r
+
+    return new_path
 
 
 def count_distance(from_y, from_x, to_y, to_x):
@@ -218,6 +251,9 @@ def find_shortest_path_in_locals(from_floor, from_position, to_floor, to_positio
 
 
 def find_shortest_path(from_floor, from_position, to_floor, to_position):
+    if (from_floor, from_position, to_floor, to_position) in cached_queries:
+        return cached_queries[(from_floor, from_position, to_floor, to_position)]
+
     from_local_position = convert_coordinates_from_geo_to_local(from_position)
     logging.error(from_position)
     logging.error(from_local_position)
@@ -226,8 +262,14 @@ def find_shortest_path(from_floor, from_position, to_floor, to_position):
         from_floor, from_local_position, to_floor, to_local_position)
 
     shortest_path = convert_path_from_local_to_geo(local_shortest_path)
-    return shortest_path
 
+    cached_queries[(from_floor, from_position, to_floor, to_position)] = shortest_path
+    return shortest_path
+    # return local_shortest_path
+
+
+
+cached_queries = {}
 
 floors = get_floors()
 
