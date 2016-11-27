@@ -110,7 +110,6 @@ def create_route(request):
     routes = Route.objects.filter(user_id=user_id, status=models.ROUTE_STATUS_WAIT)
     if len(routes.values()) == 0:
         return Response("Root not founds", status=status.HTTP_404_NOT_FOUND)
-    logging.error(routes)
     scooters = Scooter.objects.filter(status__in=[models.SCOOTER_STATUS_FREE],
                                       floor=json.loads(routes.values()[0]['path'])[0][0])
 
@@ -141,9 +140,13 @@ def iterate_step(request):
         if len(new_path) == 0:
             scooter['status'] = models.SCOOTER_STATUS_RETURNING
             station = Station.objects.get(id=scooter['home_station_id'])
-            logging.error(station.y_coord)
+            logging.error(scooter['floor'])
+            logging.error((scooter['y_coord'], scooter['x_coord']))
+            logging.error(station.floor)
+            logging.error((station.y_coord, station.x_coord))
             path = find_shortest_path(scooter['floor'], (scooter['y_coord'], scooter['x_coord']),
                                       station.floor, (station.y_coord, station.x_coord))
+
 
             path_serializer = RouteSerializer(data={'path': json.dumps(path), 'user_id': 1, 'status': models.ROUTE_STATUS_RUNNING})
             if path_serializer.is_valid():
