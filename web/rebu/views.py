@@ -114,7 +114,8 @@ def create_route(request):
     routes = Route.objects.filter(user_id=user_id, status=models.ROUTE_STATUS_WAIT)
     if len(routes.values()) == 0:
         return Response("Root not founds", status=status.HTTP_404_NOT_FOUND)
-    scooters = Scooter.objects.filter(status__in=[models.SCOOTER_STATUS_FREE], )
+    scooters = Scooter.objects.filter(status__in=[models.SCOOTER_STATUS_FREE],
+                                      floor=json.loads(routes.values()[0]['path'])[0][0])
 
     if len(scooters.values()) == 0:
         return Response("All resources are busy", status=status.HTTP_405_METHOD_NOT_ALLOWED)
@@ -137,8 +138,8 @@ def iterate_step(request):
     for scooter in scooters.values():
         route = Route.objects.get(id=scooter['route_id'])
         path = json.loads(route.path)
-        speed = 1
-        tick = 3
+        speed = 0.0005
+        tick = 1
         new_pose, new_floor, new_path = iterate([scooter['y_coord'], scooter['x_coord']], scooter['floor'], path, speed, tick)
         if len(new_path) == 0:
             scooter['status'] = models.SCOOTER_STATUS_RETURNING
@@ -147,10 +148,12 @@ def iterate_step(request):
             path = find_shortest_path(scooter['floor'], [scooter['y_coord'], scooter['x_coord']],
                                       station.floor, [station.y_coord, station.x_coord])
 
-            path_serializer = RouteSerializer(data={'path': path, 'user_id':1})
+            path_serializer = RouteSerializer(data={'path': json.dumps(path), 'user_id': 1, 'status': models.ROUTE_STATUS_RUNNING})
             if path_serializer.is_valid():
                 inst = path_serializer.save()
                 scooter['route_id'] = inst.id
+            else:
+                logging.error(path_serializer.errors)
             route.delete()
         else:
             route.path = json.dumps(new_path)
@@ -168,8 +171,8 @@ def iterate_step(request):
     for scooter in scooters.values():
         route = Route.objects.get(id=scooter['route_id'])
         path = json.loads(route.path)
-        speed = 1
-        tick = 3
+        speed = 0.0005
+        tick = 1
         new_pose, new_floor, new_path = iterate([scooter['y_coord'], scooter['x_coord']], scooter['floor'], path, speed, tick)
         if len(new_path) == 0:
             scooter['status'] = models.SCOOTER_STATUS_FREE
