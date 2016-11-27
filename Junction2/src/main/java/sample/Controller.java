@@ -80,7 +80,7 @@ public class Controller implements Initializable {
 
     private int level;
 
-//    (60.484129, 15.418381), (60.484351, 15.417935)
+//     (60.484351, 15.417935)(60.484129, 15.418381),
 
 
 //    393.5325 - x1
@@ -161,11 +161,12 @@ public class Controller implements Initializable {
                             Image image = SwingFXUtils.toFXImage(ImageIO.read(imageUrl), null);
                             map.setImage(image);
                             mapImage = image;
+                            level = 0;
+//                            DrawScheduler.scheduleAtFixedRate(new RunnableDrawer(), 0, 100, MILLISECONDS);
 //                            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                         } catch (IOException ex) {
                             ex.printStackTrace();
                         }
-                        level = 0;
                         break;
                     case "second":
                         imageUrl = getClass().getResource("/2.jpg");
@@ -173,11 +174,12 @@ public class Controller implements Initializable {
                             Image image = SwingFXUtils.toFXImage(ImageIO.read(imageUrl), null);
                             map.setImage(image);
                             mapImage = image;
+                            level = 1;
+//                            DrawScheduler.scheduleAtFixedRate(new RunnableDrawer(), 0, 100, MILLISECONDS);
 //                            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                         } catch (IOException ex) {
                             ex.printStackTrace();
                         }
-                        level = 1;
                         break;
                     case "third":
                         imageUrl = getClass().getResource("/3.jpg");
@@ -185,11 +187,12 @@ public class Controller implements Initializable {
                             Image image = SwingFXUtils.toFXImage(ImageIO.read(imageUrl), null);
                             map.setImage(image);
                             mapImage = image;
+                            level = 2;
+//                            DrawScheduler.scheduleAtFixedRate(new RunnableDrawer(), 0, 100, MILLISECONDS);
 //                            gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                         } catch (IOException ex) {
                             ex.printStackTrace();
                         }
-                        level = 2;
                         break;
                 }
             }
@@ -257,10 +260,21 @@ public class Controller implements Initializable {
 
         List<Position> route = g.getRoute();
 
+        if (route.size() < 2) {
+            return;
+        }
+
         for (int i = 0; i < route.size() - 1; ++i) {
             if (route.get(i + 1).getFloor() != level) {
                 break;
             }
+
+            if ((route.get(i +1).getX().intValue() - 5 < 0 || route.get(i +1).getX().intValue() - 5 > mapImage.getWidth()
+                    || route.get(i +1).getY().intValue() - 5 < 0 || route.get(i +1).getY().intValue() - 5 > mapImage.getHeight())) {
+                g2.fillOval(route.get(i +1).getX().intValue() - 5, route.get(i +1).getY().intValue() - 5, 10, 10);
+                break;
+            }
+
             g2.drawLine(route.get(i).getX().intValue(), route.get(i).getY().intValue(),
                     route.get(i + 1).getX().intValue(), route.get(i + 1).getY().intValue());
 //            gc.setFill(Color.BLUE);
@@ -289,7 +303,9 @@ public class Controller implements Initializable {
         double curTime = MILLISECONDS_IN_TICK;
         while(curTime > EPS && trajectory.size() > 1) {
             if (trajectory.get(1).getFloor() != trajectory.get(0).getFloor()) {
-                System.out.printf("aaa\n");
+//                System.out.printf("aaa\n");
+                trajectory.remove(0);
+                break;
             }
             else {
                 Position distance = Position.subtract(trajectory.get(1), trajectory.get(0));
@@ -299,6 +315,7 @@ public class Controller implements Initializable {
                     Position newPosition = Position.sum(trajectory.get(0),
                             Position.mult(Position.subtract(trajectory.get(1), trajectory.get(0)), deltaDistanceValue / distanceValue));
                     Position removed =  trajectory.remove(0);
+                    newPosition.setFloor(removed.getFloor());
                     trajectory.add(0, newPosition);
 //                    System.out.println("rem\n");
 //                    System.out.printf(removed.getX().toString(), removed.getY());

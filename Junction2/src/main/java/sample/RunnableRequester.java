@@ -36,8 +36,8 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 
 final class RunnableRequester implements Runnable {
 
-    private Double scaleX = (393.5325 - 484.98) / (15.418381 - 15.417935);
-    private Double scaleY = (220.91250000000002 - 314.415) / (60.484129 - 60.484351);
+    private Double scaleX = (393.5325 - 484.98) / (15.417935 - 15.418381);
+    private Double scaleY = (220.91250000000002 - 314.415) / (60.484351 - 60.484129);
     private Double moduleScale = Position.calculateDistance(new Position(scaleX, scaleY, 0));
 
     private Position startGeo;
@@ -57,7 +57,9 @@ final class RunnableRequester implements Runnable {
 
     private Position translateCoordinates(Position posGeo) {
         Position vector = Position.subtract(posGeo, startGeo);
-        return Position.sum(startPix, new Position(vector.getX() * scaleX, vector.getY() * scaleY, 0));
+        Position ret =  Position.sum(startPix, new Position(vector.getX() * scaleX, vector.getY() * scaleY, posGeo.getFloor()));
+        ret.setFloor(posGeo.getFloor());
+        return ret;
     }
 
 
@@ -69,13 +71,14 @@ final class RunnableRequester implements Runnable {
             Double y_c = Double.parseDouble(obj.get("y_coord").toString());
             Double x_c = Double.parseDouble(obj.get("x_coord").toString());
             Double floor_c = Double.parseDouble(obj.get("floor").toString());
+            Gyro newG = new Gyro();
+            Double speed = 0.;
+            List<Position> rout = new LinkedList<>();
+            rout.add(translateCoordinates(new Position(x_c, y_c,
+                    floor_c.intValue())));
             if (route != null) {
-                Gyro newG = new Gyro();
-                Double speed =  Double.parseDouble(obj.get("speed").toString()) * moduleScale / 3 / 10;
-                newG.setSpeed(speed);
-                List<Position> rout = new LinkedList<>();
-                rout.add(translateCoordinates(new Position(x_c, y_c,
-                        floor_c.intValue())));
+//                speed =  Double.parseDouble(obj.get("speed").toString()) * moduleScale / 3 / 10;
+                speed = 4.7;
                 String path = (String)route.get("path");
                 JSONArray pathJson = stringToJson(path);
                 for (int j = 0; j < pathJson.size(); ++j) {
@@ -91,10 +94,11 @@ final class RunnableRequester implements Runnable {
 
 //                    System.out.println(rout.size());
                 }
-                newG.setRoute(rout);
-//                System.out.println(newG.getRoute().size());
-                gyros.add(newG);
             }
+            newG.setRoute(rout);
+            newG.setSpeed(speed);
+//                System.out.println(newG.getRoute().size());
+            gyros.add(newG);
         }
         return gyros;
     }
@@ -104,7 +108,8 @@ final class RunnableRequester implements Runnable {
     final class Requester implements Callable<List<Gyro> > {
 
         Requester() {
-            startGeo = new Position(15.418381, 60.484129, 0);
+//            (60.484129, 15.418381), (60.484351, 15.417935)
+            startGeo = new Position(15.417935, 60.484351, 0);
             startPix = new Position(393.5325, 220.91250000000002, 0);
         }
         public List<Gyro> call() {

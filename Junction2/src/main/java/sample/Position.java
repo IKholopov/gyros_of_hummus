@@ -25,7 +25,9 @@ public class Position {
 //        if (a.getFloor() != b.getFloor()) {
 //            System.out.println("can't subtract\n");
 //        }
-        return new Position(a.getX() - b.getX(), a.getY() - b.getY(), a.getFloor());
+        Position ret = new Position(a.getX() - b.getX(), a.getY() - b.getY(), a.getFloor());
+        ret.setFloor(a.getFloor());
+        return ret;
     }
 
     public final static Position mult(Position a, double m) {
