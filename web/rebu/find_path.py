@@ -231,9 +231,9 @@ def find_shortest_path(from_floor, from_position, to_floor, to_position):
 
 floors = get_floors()
 
-elevators = []
-for pos_y in range(len(floors[0])):
-    for pos_x in range(len(floors[0][0])):
-        if floors[0][pos_y][pos_x] == ELEVATOR:
-            elevators.append((pos_y, pos_x))
-elev_y, elev_x = elevators[-1]
+# elevators = []
+# for pos_y in range(len(floors[0])):
+#     for pos_x in range(len(floors[0][0])):
+#         if floors[0][pos_y][pos_x] == ELEVATOR:
+#             elevators.append((pos_y, pos_x))
+# elev_y, elev_x = elevators[-1]
