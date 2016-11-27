@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import MapLayer, Office, Route, Scooter
+from .models import MapLayer, Office, Route, Scooter, Station
 
 
 class MapLayerSerializer(serializers.Serializer):
@@ -44,6 +44,16 @@ class ScooterSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         return Scooter.objects.create(**validated_data)
+
+class StationSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    x_coord = serializers.FloatField(required=True)
+    y_coord = serializers.FloatField(required=True)
+    floor = serializers.FloatField(required=True)
+
+    def create(self, validated_data):
+        return Station.objects.create(**validated_data)
+
 
 class OfficeSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)

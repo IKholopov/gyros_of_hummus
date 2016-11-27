@@ -12,5 +12,6 @@ urlpatterns = [
     url(r'^iterate/$', views.iterate_step, name='index'),
     url(r'^create_route/$', views.create_route, name='index'),
     url(r'^scooters_data/$', views.scooters_data, name='index'),
-    url(r'^add_scooters/$', views.add_scooters, name='index')
+    url(r'^add_scooters/$', views.add_scooters, name='index'),
+    url(r'^stations/$', views.station, name='index')
 ]

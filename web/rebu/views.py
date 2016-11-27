@@ -10,7 +10,7 @@ from . import models
 from .livesession import iterate
 from .find_path import find_shortest_path
 from .models import MapLayer, Office, Scooter, Route, Station
-from .serializers import MapLayerSerializer, OfficeSerializer, RouteSerializer, ScooterSerializer
+from .serializers import MapLayerSerializer, OfficeSerializer, RouteSerializer, ScooterSerializer, StationSerializer
 
 
 def editor(request):
@@ -198,3 +198,17 @@ def add_scooters(request):
         serializer.save(home_station=Station.objects.get(floor=data['floor']))
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'POST'])
+def station(request):
+    if request.method == 'GET':
+        stations = Station.objects.all()
+        serializer = StationSerializer(stations, many=True)
+        return Response(serializer.data)
+
+    if request.method == 'POST':
+        serializer = StationSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
