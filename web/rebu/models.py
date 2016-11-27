@@ -39,5 +39,5 @@ class Scooter(models.Model):
     y_coord = models.FloatField(blank=False)
     floor = models.IntegerField(blank=False)
     status = models.IntegerField(blank=False, default=SCOOTER_STATUS_FREE)
-    route = models.ForeignKey(Route, on_delete=models.CASCADE, blank=True, null=True)
+    route = models.ForeignKey(Route, on_delete=models.SET_NULL, blank=True, null=True)
     home_station = models.ForeignKey(Station, null=True)

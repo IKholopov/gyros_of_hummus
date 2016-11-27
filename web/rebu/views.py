@@ -84,9 +84,6 @@ def map_layer(request, floor):
 @api_view(['GET'])
 def navigate(request):
     user_id = request.GET.get('user_id')
-    if user_id:
-        routes = Route.objects.filter(user_id=user_id)
-        routes.delete()
     floor_from = request.GET.get('floor_from')
     floor_to = request.GET.get('floor_to')
     x_from = request.GET.get('x_from')
@@ -97,7 +94,6 @@ def navigate(request):
         return Response(status=status.HTTP_404_NOT_FOUND)
     path = find_shortest_path(int(floor_from), (float(y_from), float(x_from)),
                                        int(floor_to), (float(y_to), float(x_to)))
-    #logging.error()
     data = { 'path': json.dumps(path), 'user_id': user_id, 'status': models.ROUTE_STATUS_WAIT}
     serializer = RouteSerializer(data=data)
     if serializer.is_valid():
@@ -114,6 +110,7 @@ def create_route(request):
     routes = Route.objects.filter(user_id=user_id, status=models.ROUTE_STATUS_WAIT)
     if len(routes.values()) == 0:
         return Response("Root not founds", status=status.HTTP_404_NOT_FOUND)
+    logging.error(routes)
     scooters = Scooter.objects.filter(status__in=[models.SCOOTER_STATUS_FREE],
                                       floor=json.loads(routes.values()[0]['path'])[0][0])
 
