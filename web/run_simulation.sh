@@ -6,5 +6,6 @@ do
     curl --data "user_id=1" http://$SRV/create_route/
     curl --data "user_id=2" http://$SRV/create_route/
     curl --data "user_id=3" http://$SRV/create_route/
+    curl --data "user_id=4" http://$SRV/create_route/
     sleep 3
 done
