@@ -7,8 +7,8 @@ import heapq
 from .serializers import MapLayerSerializer
 from .models import MapLayer
 
-EMPTY = 0
-WALL = 1
+EMPTY = 1
+WALL = 0
 ELEVATOR = 2
 
 
@@ -17,7 +17,7 @@ class PathNotFoundException(Exception):
 
 
 def convert_coordinates_from_geo_to_local(geo_position):
-    coord_start = [(299, 198), (270, 168)]
+    coord_start = [(198, 299), (168, 270)]
     real_coord = [(60.484129, 15.418381), (60.484351, 15.417935)]
     scale = [(coord_start[1][0] - coord_start[0][0]) / (real_coord[1][0] - real_coord[0][0]),
                    (coord_start[1][1] - coord_start[0][1]) / (real_coord[1][1] - real_coord[0][1])]
@@ -28,7 +28,7 @@ def convert_coordinates_from_geo_to_local(geo_position):
 
 
 def convert_coordinates_from_local_to_geo(local_position):
-    coord_start = [(299, 198), (270, 168)]
+    coord_start = [(198, 299), (168, 270)]
     real_coord = [(60.484129, 15.418381), (60.484351, 15.417935)]
     scale = [(coord_start[1][0] - coord_start[0][0]) / (real_coord[1][0] - real_coord[0][0]),
                    (coord_start[1][1] - coord_start[0][1]) / (real_coord[1][1] - real_coord[0][1])]
@@ -49,11 +49,26 @@ def extract_path(previous, to_floor, to_position_y, to_position_x):
     current_position_x = to_position_x
     current_position_y = to_position_y
 
+    last_dx = 0
+    last_dy = 0
+    current_dx = 0
+    current_dy = 0
+
     while current_floor != -1:
+        # if last_dx == current_dx and last_dy == current_dy and (current_dx, current_dy) != (0, 0):
+        #     path[-1] = (current_floor, (current_position_y, current_position_x))
+        # else:
+        #     path.append((current_floor, (current_position_y, current_position_x)))
         path.append((current_floor, (current_position_y, current_position_x)))
 
-        current_floor, current_position_y, current_position_x = \
+        next_floor, next_position_y, next_position_x = \
             previous[current_floor][current_position_y][current_position_x]
+
+        last_dx, last_dy = current_dx, current_dy
+        current_dx = next_position_x - current_position_x
+        current_dy = next_position_y - current_position_y
+
+        current_floor, current_position_y, current_position_x = next_floor, next_position_y, next_position_x
 
     return path[::-1]
 
@@ -67,7 +82,7 @@ def count_floor_distance(from_y, from_x, from_floor, to_y, to_x, to_floor):
     if from_floor == to_floor:
         return math.hypot(from_x - to_x, from_y - to_y)
 
-    # elev_y, elev_x = elevators[0]
+    # elev_y, elev_x = (199, 299)
     return ((to_floor - from_floor) + math.hypot(from_x - elev_x, from_y - elev_y) +
                     math.hypot(to_x - elev_x, to_y - elev_y))
     # return result
@@ -83,7 +98,7 @@ def compare_floors(floor):
 
 
 def get_floors():
-    layers = MapLayer.objects.filter(title='Kupolen')
+    layers = MapLayer.objects.filter(title='Kupolen3')
     serializer = MapLayerSerializer(layers, many=True)
     sorted_floors = serializer.data
     sorted_floors.sort(key=compare_floors)
@@ -94,6 +109,10 @@ def get_floors():
 
 
 def find_shortest_path_in_locals(from_floor, from_position, to_floor, to_position):
+    for elev in elevators:
+        logging.error(elev)
+
+
     if from_position == to_position and from_floor == to_floor:
         return [(from_floor, from_position)]
 
@@ -126,7 +145,7 @@ def find_shortest_path_in_locals(from_floor, from_position, to_floor, to_positio
 
         distance = min_distance[floor][position_y][position_x]
 
-        # logging.error('{} {} {} {}'.format(distance, floor, position_y, position_x))
+        logging.error((distance, floor, position_y, position_x))
 
         # if distance > min_distance[floor][position_y][position_x] + 1e-6:
         if distance < 0:
@@ -139,6 +158,7 @@ def find_shortest_path_in_locals(from_floor, from_position, to_floor, to_positio
             finish_distance = count_distance(position_y, position_x, to_position_y, to_position_x)
 
         if not elevator_found and floors[floor][position_y][position_x] == ELEVATOR:
+        # if not elevator_found and (position_y, position_x) == (199, 299):
             elevator_found = True
             for next_floor in range(len(floors)):
                 if next_floor == floor:
@@ -170,7 +190,7 @@ def find_shortest_path_in_locals(from_floor, from_position, to_floor, to_positio
             next_position_x = position_x + dx
             next_distance = distance + count_distance(position_y, position_x, next_position_y, next_position_x)
 
-            # print(' ', next_position_y, next_position_x, next_distance)
+            # logging.error((' ', next_position_y, next_position_x, next_distance))
 
             if next_position_y < 0 or next_position_y >= len(floors[floor]):
                 continue
@@ -202,18 +222,19 @@ def find_shortest_path(from_floor, from_position, to_floor, to_position):
     logging.error(from_position)
     logging.error(from_local_position)
     to_local_position = convert_coordinates_from_geo_to_local(to_position)
-    local_shortes_path = find_shortest_path_in_locals(
+    local_shortest_path = find_shortest_path_in_locals(
         from_floor, from_local_position, to_floor, to_local_position)
 
-    shortest_path = convert_path_from_local_to_geo(local_shortes_path)
+    shortest_path = convert_path_from_local_to_geo(local_shortest_path)
     return shortest_path
 
 
 floors = get_floors()
 
-elevators = []
-for pos_y in range(len(floors[0])):
-    for pos_x in range(len(floors[0][0])):
-        if floors[0][pos_y][pos_x] == ELEVATOR:
-            elevators.append((pos_y, pos_x))
-elev_y, elev_x = elevators[0]
+if len(floors) > 0:
+    elevators = []
+    for pos_y in range(len(floors[0])):
+        for pos_x in range(len(floors[0][0])):
+            if floors[0][pos_y][pos_x] == ELEVATOR:
+                elevators.append((pos_y, pos_x))
+    elev_y, elev_x = elevators[-1]
