@@ -15,9 +15,14 @@ class Office(models.Model):
     y_coord = models.IntegerField(blank=False)
     floor = models.IntegerField(blank=False)
 
+
+ROUTE_STATUS_WAIT = 0
+ROUTE_STATUS_RUNNING = 1
+
 class Route(models.Model):
     path = models.TextField()
     user_id = models.IntegerField(null=True)
+    status = models.IntegerField(null=True)
 
 
 class Station(models.Model):

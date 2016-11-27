@@ -85,7 +85,7 @@ def map_layer(request, floor):
 def navigate(request):
     user_id = request.GET.get('user_id')
     if user_id:
-        routes = Route.objects.filter(user_id)
+        routes = Route.objects.filter(user_id=user_id)
         routes.delete()
     floor_from = request.GET.get('floor_from')
     floor_to = request.GET.get('floor_to')
@@ -98,32 +98,36 @@ def navigate(request):
     path = find_shortest_path(int(floor_from), (float(y_from), float(x_from)),
                                        int(floor_to), (float(y_to), float(x_to)))
     #logging.error()
-    data = { 'path': json.dumps(path), 'user_id': user_id}
+    data = { 'path': json.dumps(path), 'user_id': user_id, 'status': models.ROUTE_STATUS_WAIT}
     serializer = RouteSerializer(data=data)
     if serializer.is_valid():
         serializer.save()
         return Response(path, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view()
 
 @api_view(['POST'])
 def create_route(request):
-    logging.error(request.POST)
-    route = request.POST.get('path', '')
-    if not route:
+    user_id = request.POST.get('user_id', '')
+    if not user_id:
         return Response(status=status.HTTP_400_BAD_REQUEST)
-    serializer = RouteSerializer(data=request.data)
+    routes = Route.objects.filter(user_id=user_id, status=models.ROUTE_STATUS_WAIT)
+    if len(routes.values()) == 0:
+        return Response("Root not founds", status=status.HTTP_404_NOT_FOUND)
     scooters = Scooter.objects.filter(status__in=[models.SCOOTER_STATUS_FREE], )
-    if serializer.is_valid():
-        instance = serializer.save()
+
     if len(scooters.values()) == 0:
-        return Response("All resources are busy", status=status.HTTP_201_CREATED)
+        return Response("All resources are busy", status=status.HTTP_405_METHOD_NOT_ALLOWED)
     else:
         sc = Scooter.objects.get(id=scooters.values()[0]['id'])
-        sc.route_id = instance.id
+        route = routes.values()[0]
+        sc.route_id = route['id']
+        route['status'] = models.ROUTE_STATUS_RUNNING
         sc.status = models.SCOOTER_STATUS_BUSY
         sc.save()
+        rt = Route.objects.filter(id=route['id'])
+        rt.update_or_create(route)
+        #routes.save()
         return Response(status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -133,20 +137,24 @@ def iterate_step(request):
     for scooter in scooters.values():
         route = Route.objects.get(id=scooter['route_id'])
         path = json.loads(route.path)
-        speed = 0.2
+        speed = 1
         tick = 3
         new_pose, new_floor, new_path = iterate([scooter['y_coord'], scooter['x_coord']], scooter['floor'], path, speed, tick)
         if len(new_path) == 0:
             scooter['status'] = models.SCOOTER_STATUS_RETURNING
             station = Station.objects.get(id=scooter['home_station_id'])
+            logging.error(station.y_coord)
             path = find_shortest_path(scooter['floor'], [scooter['y_coord'], scooter['x_coord']],
                                       station.floor, [station.y_coord, station.x_coord])
+
             path_serializer = RouteSerializer(data={'path': path, 'user_id':1})
-            inst = path_serializer.save()
-            scooter['route_id'] = inst.id
+            if path_serializer.is_valid():
+                inst = path_serializer.save()
+                scooter['route_id'] = inst.id
             route.delete()
         else:
             route.path = json.dumps(new_path)
+            route.status = models.ROUTE_STATUS_RUNNING
             route.save()
 
         scooter['y_coord'] = new_pose[0]
@@ -156,11 +164,11 @@ def iterate_step(request):
         sc = Scooter.objects.filter(id=scooter['id'])
         sc.update_or_create(scooter)
     scooters.update()
-    scooters = scooters = Scooter.objects.filter(status=models.SCOOTER_STATUS_RETURNING)
+    scooters = Scooter.objects.filter(status=models.SCOOTER_STATUS_RETURNING)
     for scooter in scooters.values():
         route = Route.objects.get(id=scooter['route_id'])
         path = json.loads(route.path)
-        speed = 0.2
+        speed = 1
         tick = 3
         new_pose, new_floor, new_path = iterate([scooter['y_coord'], scooter['x_coord']], scooter['floor'], path, speed, tick)
         if len(new_path) == 0:
