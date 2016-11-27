@@ -1,0 +1,630 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0127F12005E8350992AC4B7B /* libPods-JunctionIndoorProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D67E0A7B159DEB4866A6E03A /* libPods-JunctionIndoorProject.a */; };
+		9562E2F61DE99C2F00220DFF /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9562E2F51DE99C2F00220DFF /* Place.swift */; };
+		9562E2FC1DE9B34400220DFF /* PlacesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9562E2FB1DE9B34400220DFF /* PlacesTableViewController.swift */; };
+		9564E9BF1DE8B87000D088B6 /* MainScreenVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9564E9BE1DE8B87000D088B6 /* MainScreenVCViewController.swift */; };
+		9574772F1DE8B37E00C27771 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9574772E1DE8B37E00C27771 /* AppDelegate.swift */; };
+		957477341DE8B37E00C27771 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 957477321DE8B37E00C27771 /* Main.storyboard */; };
+		957477361DE8B37E00C27771 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 957477351DE8B37E00C27771 /* Assets.xcassets */; };
+		957477391DE8B37E00C27771 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 957477371DE8B37E00C27771 /* LaunchScreen.storyboard */; };
+		957477441DE8B37E00C27771 /* JunctionIndoorProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957477431DE8B37E00C27771 /* JunctionIndoorProjectTests.swift */; };
+		9574774F1DE8B37E00C27771 /* JunctionIndoorProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9574774E1DE8B37E00C27771 /* JunctionIndoorProjectUITests.swift */; };
+		9574775D1DE8B38B00C27771 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 9574775C1DE8B38B00C27771 /* Podfile */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		957477401DE8B37E00C27771 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 957477231DE8B37E00C27771 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9574772A1DE8B37E00C27771;
+			remoteInfo = JunctionIndoorProject;
+		};
+		9574774B1DE8B37E00C27771 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 957477231DE8B37E00C27771 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9574772A1DE8B37E00C27771;
+			remoteInfo = JunctionIndoorProject;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3944843950A2CEF276212A9B /* Pods-JunctionIndoorProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JunctionIndoorProject.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JunctionIndoorProject/Pods-JunctionIndoorProject.debug.xcconfig"; sourceTree = "<group>"; };
+		9562E2F51DE99C2F00220DFF /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Place.swift; path = ../Place.swift; sourceTree = "<group>"; };
+		9562E2FB1DE9B34400220DFF /* PlacesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesTableViewController.swift; sourceTree = "<group>"; };
+		9564E9BE1DE8B87000D088B6 /* MainScreenVCViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainScreenVCViewController.swift; path = ../MainScreenVCViewController.swift; sourceTree = "<group>"; };
+		9574772B1DE8B37E00C27771 /* JunctionIndoorProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JunctionIndoorProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9574772E1DE8B37E00C27771 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		957477331DE8B37E00C27771 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		957477351DE8B37E00C27771 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		957477381DE8B37E00C27771 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		9574773A1DE8B37E00C27771 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9574773F1DE8B37E00C27771 /* JunctionIndoorProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JunctionIndoorProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		957477431DE8B37E00C27771 /* JunctionIndoorProjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JunctionIndoorProjectTests.swift; sourceTree = "<group>"; };
+		957477451DE8B37E00C27771 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9574774A1DE8B37E00C27771 /* JunctionIndoorProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JunctionIndoorProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9574774E1DE8B37E00C27771 /* JunctionIndoorProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JunctionIndoorProjectUITests.swift; sourceTree = "<group>"; };
+		957477501DE8B37E00C27771 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9574775C1DE8B38B00C27771 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		C91A6BBCA94EE25F34B03E52 /* Pods-JunctionIndoorProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JunctionIndoorProject.release.xcconfig"; path = "Pods/Target Support Files/Pods-JunctionIndoorProject/Pods-JunctionIndoorProject.release.xcconfig"; sourceTree = "<group>"; };
+		D67E0A7B159DEB4866A6E03A /* libPods-JunctionIndoorProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JunctionIndoorProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		957477281DE8B37E00C27771 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0127F12005E8350992AC4B7B /* libPods-JunctionIndoorProject.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9574773C1DE8B37E00C27771 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		957477471DE8B37E00C27771 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		631D21612B535E1E4A21594F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D67E0A7B159DEB4866A6E03A /* libPods-JunctionIndoorProject.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		957477221DE8B37E00C27771 = {
+			isa = PBXGroup;
+			children = (
+				9574775C1DE8B38B00C27771 /* Podfile */,
+				9574772D1DE8B37E00C27771 /* JunctionIndoorProject */,
+				957477421DE8B37E00C27771 /* JunctionIndoorProjectTests */,
+				9574774D1DE8B37E00C27771 /* JunctionIndoorProjectUITests */,
+				9574772C1DE8B37E00C27771 /* Products */,
+				AB5C2D984F544E9DBE68152A /* Pods */,
+				631D21612B535E1E4A21594F /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		9574772C1DE8B37E00C27771 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9574772B1DE8B37E00C27771 /* JunctionIndoorProject.app */,
+				9574773F1DE8B37E00C27771 /* JunctionIndoorProjectTests.xctest */,
+				9574774A1DE8B37E00C27771 /* JunctionIndoorProjectUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9574772D1DE8B37E00C27771 /* JunctionIndoorProject */ = {
+			isa = PBXGroup;
+			children = (
+				9574772E1DE8B37E00C27771 /* AppDelegate.swift */,
+				9564E9BE1DE8B87000D088B6 /* MainScreenVCViewController.swift */,
+				9562E2F51DE99C2F00220DFF /* Place.swift */,
+				957477321DE8B37E00C27771 /* Main.storyboard */,
+				9562E2FB1DE9B34400220DFF /* PlacesTableViewController.swift */,
+				957477351DE8B37E00C27771 /* Assets.xcassets */,
+				957477371DE8B37E00C27771 /* LaunchScreen.storyboard */,
+				9574773A1DE8B37E00C27771 /* Info.plist */,
+			);
+			path = JunctionIndoorProject;
+			sourceTree = "<group>";
+		};
+		957477421DE8B37E00C27771 /* JunctionIndoorProjectTests */ = {
+			isa = PBXGroup;
+			children = (
+				957477431DE8B37E00C27771 /* JunctionIndoorProjectTests.swift */,
+				957477451DE8B37E00C27771 /* Info.plist */,
+			);
+			path = JunctionIndoorProjectTests;
+			sourceTree = "<group>";
+		};
+		9574774D1DE8B37E00C27771 /* JunctionIndoorProjectUITests */ = {
+			isa = PBXGroup;
+			children = (
+				9574774E1DE8B37E00C27771 /* JunctionIndoorProjectUITests.swift */,
+				957477501DE8B37E00C27771 /* Info.plist */,
+			);
+			path = JunctionIndoorProjectUITests;
+			sourceTree = "<group>";
+		};
+		AB5C2D984F544E9DBE68152A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3944843950A2CEF276212A9B /* Pods-JunctionIndoorProject.debug.xcconfig */,
+				C91A6BBCA94EE25F34B03E52 /* Pods-JunctionIndoorProject.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9574772A1DE8B37E00C27771 /* JunctionIndoorProject */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 957477531DE8B37E00C27771 /* Build configuration list for PBXNativeTarget "JunctionIndoorProject" */;
+			buildPhases = (
+				E320EC1999AEE8E81277DF94 /* [CP] Check Pods Manifest.lock */,
+				957477271DE8B37E00C27771 /* Sources */,
+				957477281DE8B37E00C27771 /* Frameworks */,
+				957477291DE8B37E00C27771 /* Resources */,
+				498FDD26A94E6906B55B41C0 /* [CP] Embed Pods Frameworks */,
+				F0290396FA7F46E2E34F071D /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JunctionIndoorProject;
+			productName = JunctionIndoorProject;
+			productReference = 9574772B1DE8B37E00C27771 /* JunctionIndoorProject.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9574773E1DE8B37E00C27771 /* JunctionIndoorProjectTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 957477561DE8B37E00C27771 /* Build configuration list for PBXNativeTarget "JunctionIndoorProjectTests" */;
+			buildPhases = (
+				9574773B1DE8B37E00C27771 /* Sources */,
+				9574773C1DE8B37E00C27771 /* Frameworks */,
+				9574773D1DE8B37E00C27771 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				957477411DE8B37E00C27771 /* PBXTargetDependency */,
+			);
+			name = JunctionIndoorProjectTests;
+			productName = JunctionIndoorProjectTests;
+			productReference = 9574773F1DE8B37E00C27771 /* JunctionIndoorProjectTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		957477491DE8B37E00C27771 /* JunctionIndoorProjectUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 957477591DE8B37E00C27771 /* Build configuration list for PBXNativeTarget "JunctionIndoorProjectUITests" */;
+			buildPhases = (
+				957477461DE8B37E00C27771 /* Sources */,
+				957477471DE8B37E00C27771 /* Frameworks */,
+				957477481DE8B37E00C27771 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9574774C1DE8B37E00C27771 /* PBXTargetDependency */,
+			);
+			name = JunctionIndoorProjectUITests;
+			productName = JunctionIndoorProjectUITests;
+			productReference = 9574774A1DE8B37E00C27771 /* JunctionIndoorProjectUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		957477231DE8B37E00C27771 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0810;
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = "Gyros Of Hummus";
+				TargetAttributes = {
+					9574772A1DE8B37E00C27771 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = L9Q862K2CW;
+						ProvisioningStyle = Automatic;
+					};
+					9574773E1DE8B37E00C27771 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = L9Q862K2CW;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 9574772A1DE8B37E00C27771;
+					};
+					957477491DE8B37E00C27771 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = L9Q862K2CW;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 9574772A1DE8B37E00C27771;
+					};
+				};
+			};
+			buildConfigurationList = 957477261DE8B37E00C27771 /* Build configuration list for PBXProject "JunctionIndoorProject" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 957477221DE8B37E00C27771;
+			productRefGroup = 9574772C1DE8B37E00C27771 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9574772A1DE8B37E00C27771 /* JunctionIndoorProject */,
+				9574773E1DE8B37E00C27771 /* JunctionIndoorProjectTests */,
+				957477491DE8B37E00C27771 /* JunctionIndoorProjectUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		957477291DE8B37E00C27771 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				957477391DE8B37E00C27771 /* LaunchScreen.storyboard in Resources */,
+				957477361DE8B37E00C27771 /* Assets.xcassets in Resources */,
+				9574775D1DE8B38B00C27771 /* Podfile in Resources */,
+				957477341DE8B37E00C27771 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9574773D1DE8B37E00C27771 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		957477481DE8B37E00C27771 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		498FDD26A94E6906B55B41C0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JunctionIndoorProject/Pods-JunctionIndoorProject-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E320EC1999AEE8E81277DF94 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F0290396FA7F46E2E34F071D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-JunctionIndoorProject/Pods-JunctionIndoorProject-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		957477271DE8B37E00C27771 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9562E2F61DE99C2F00220DFF /* Place.swift in Sources */,
+				9562E2FC1DE9B34400220DFF /* PlacesTableViewController.swift in Sources */,
+				9564E9BF1DE8B87000D088B6 /* MainScreenVCViewController.swift in Sources */,
+				9574772F1DE8B37E00C27771 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9574773B1DE8B37E00C27771 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				957477441DE8B37E00C27771 /* JunctionIndoorProjectTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		957477461DE8B37E00C27771 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9574774F1DE8B37E00C27771 /* JunctionIndoorProjectUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		957477411DE8B37E00C27771 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9574772A1DE8B37E00C27771 /* JunctionIndoorProject */;
+			targetProxy = 957477401DE8B37E00C27771 /* PBXContainerItemProxy */;
+		};
+		9574774C1DE8B37E00C27771 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9574772A1DE8B37E00C27771 /* JunctionIndoorProject */;
+			targetProxy = 9574774B1DE8B37E00C27771 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		957477321DE8B37E00C27771 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				957477331DE8B37E00C27771 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		957477371DE8B37E00C27771 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				957477381DE8B37E00C27771 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		957477511DE8B37E00C27771 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		957477521DE8B37E00C27771 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		957477541DE8B37E00C27771 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3944843950A2CEF276212A9B /* Pods-JunctionIndoorProject.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = L9Q862K2CW;
+				INFOPLIST_FILE = JunctionIndoorProject/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mipt.JunctionIndoorProject;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		957477551DE8B37E00C27771 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C91A6BBCA94EE25F34B03E52 /* Pods-JunctionIndoorProject.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = L9Q862K2CW;
+				INFOPLIST_FILE = JunctionIndoorProject/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mipt.JunctionIndoorProject;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		957477571DE8B37E00C27771 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = L9Q862K2CW;
+				INFOPLIST_FILE = JunctionIndoorProjectTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mipt.JunctionIndoorProjectTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JunctionIndoorProject.app/JunctionIndoorProject";
+			};
+			name = Debug;
+		};
+		957477581DE8B37E00C27771 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = L9Q862K2CW;
+				INFOPLIST_FILE = JunctionIndoorProjectTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mipt.JunctionIndoorProjectTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JunctionIndoorProject.app/JunctionIndoorProject";
+			};
+			name = Release;
+		};
+		9574775A1DE8B37E00C27771 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = L9Q862K2CW;
+				INFOPLIST_FILE = JunctionIndoorProjectUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mipt.JunctionIndoorProjectUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = JunctionIndoorProject;
+			};
+			name = Debug;
+		};
+		9574775B1DE8B37E00C27771 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = L9Q862K2CW;
+				INFOPLIST_FILE = JunctionIndoorProjectUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mipt.JunctionIndoorProjectUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = JunctionIndoorProject;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		957477261DE8B37E00C27771 /* Build configuration list for PBXProject "JunctionIndoorProject" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				957477511DE8B37E00C27771 /* Debug */,
+				957477521DE8B37E00C27771 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		957477531DE8B37E00C27771 /* Build configuration list for PBXNativeTarget "JunctionIndoorProject" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				957477541DE8B37E00C27771 /* Debug */,
+				957477551DE8B37E00C27771 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		957477561DE8B37E00C27771 /* Build configuration list for PBXNativeTarget "JunctionIndoorProjectTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				957477571DE8B37E00C27771 /* Debug */,
+				957477581DE8B37E00C27771 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		957477591DE8B37E00C27771 /* Build configuration list for PBXNativeTarget "JunctionIndoorProjectUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9574775A1DE8B37E00C27771 /* Debug */,
+				9574775B1DE8B37E00C27771 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 957477231DE8B37E00C27771 /* Project object */;
+}
