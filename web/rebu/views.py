@@ -99,8 +99,10 @@ def navigate(request):
                                        int(floor_to), (float(y_to), float(x_to)))
     data = { 'path': path, 'user_id': user_id}
     serializer = RouteSerializer(data=data)
-    serializer.save()
-    return Response(path, status=status.HTTP_200_OK)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(path, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view()
 
