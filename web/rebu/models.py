@@ -17,7 +17,7 @@ class Office(models.Model):
 
 class Route(models.Model):
     path = models.TextField()
-    user_id = models.IntegerField()
+    user_id = models.IntegerField(null=True)
 
 
 class Station(models.Model):

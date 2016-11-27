@@ -28,7 +28,7 @@ class MapLayerSerializer(serializers.Serializer):
 class RouteSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     path = serializers.CharField(required=True)
-    user_id = serializers.IntegerField()
+    user_id = serializers.IntegerField(allow_null=True)
 
     def create(selfself, validated_data):
         return Route.objects.create(**validated_data)
