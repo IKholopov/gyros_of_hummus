@@ -171,8 +171,8 @@ def iterate_step(request):
             route.path = json.dumps(new_path)
             route.save()
 
-        scooter['x_coord'] = new_pose[0]
-        scooter['y_coord'] = new_pose[1]
+        scooter['y_coord'] = new_pose[0]
+        scooter['x_coord'] = new_pose[1]
         scooter['floor'] = new_floor
 
         sc = Scooter.objects.filter(id=scooter['id'])
