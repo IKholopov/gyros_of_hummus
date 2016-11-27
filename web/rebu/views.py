@@ -135,9 +135,9 @@ def iterate_step(request):
     for scooter in scooters.values():
         route = Route.objects.get(id=scooter['route_id'])
         path = json.loads(route.path)
-        speed = 0.0005
         tick = 1
-        new_pose, new_floor, new_path = iterate([scooter['y_coord'], scooter['x_coord']], scooter['floor'], path, speed, tick)
+        new_pose, new_floor, new_path = iterate([scooter['y_coord'], scooter['x_coord']], scooter['floor'],
+                                                path, scooter['speed'], tick)
         if len(new_path) == 0:
             scooter['status'] = models.SCOOTER_STATUS_RETURNING
             station = Station.objects.get(id=scooter['home_station_id'])
@@ -168,9 +168,9 @@ def iterate_step(request):
     for scooter in scooters.values():
         route = Route.objects.get(id=scooter['route_id'])
         path = json.loads(route.path)
-        speed = 0.0005
         tick = 1
-        new_pose, new_floor, new_path = iterate([scooter['y_coord'], scooter['x_coord']], scooter['floor'], path, speed, tick)
+        new_pose, new_floor, new_path = iterate([scooter['y_coord'], scooter['x_coord']], scooter['floor'], path,
+                                                scooter['speed'], tick)
         if len(new_path) == 0:
             scooter['status'] = models.SCOOTER_STATUS_FREE
             scooter['route_id'] = None

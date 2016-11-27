@@ -38,6 +38,7 @@ class ScooterSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     x_coord = serializers.FloatField(required=True)
     y_coord = serializers.FloatField(required=True)
+    speed = serializers.FloatField(required=True)
     floor = serializers.FloatField(required=True)
     status = serializers.IntegerField(required=True)
     route = serializers.PrimaryKeyRelatedField(read_only=True)
