@@ -11,7 +11,6 @@ do
 	sleep 10
     curl "http://$SRV/navigate/?floor_from=2&x_from=15.418278&y_from=60.484265&floor_to=1&x_to=15.417881&y_to=60.484202&user_id=2"
     curl http://$SRV/create_route/ --data "user_id=2"
-    sleep 10
     curl "http://$SRV/navigate/?floor_from=2&x_from=15.417895&y_from=60.483546&floor_to=1&x_to=15.418110&y_to=60.485317&user_id=2"
     curl http://$SRV/create_route/ --data "user_id=2"
     sleep 10
