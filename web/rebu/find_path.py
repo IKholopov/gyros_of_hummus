@@ -43,6 +43,7 @@ def convert_path_from_local_to_geo(local_path):
 
 
 def extract_path(previous, to_floor, to_position_y, to_position_x):
+    logging.error('extract_path')
     path = []
 
     current_floor = to_floor
@@ -89,6 +90,7 @@ def no_intersections(floor, from_y, from_x, to_y, to_x):
 
 
 def relax_path(path):
+    logging.error('relax_path')
     l = 0
     r = 1
 
@@ -98,6 +100,8 @@ def relax_path(path):
         new_path.append(path[l])
         while r < len(path) and path[l][0] == path[r][0] and \
             no_intersections(path[l][0], path[l][1][0], path[l][1][1], path[r][1][0], path[r][1][1]):
+            r += 1
+        if l == r and r != len(path):
             r += 1
         if new_path[-1] != path[r - 1]:
             new_path.append(path[r - 1])
@@ -178,7 +182,7 @@ def find_shortest_path_in_locals(from_floor, from_position, to_floor, to_positio
 
         distance = min_distance[floor][position_y][position_x]
 
-        # logging.error((distance, floor, position_y, position_x))
+        logging.error((distance, floor, position_y, position_x))
 
         # if distance > min_distance[floor][position_y][position_x] + 1e-6:
         if distance < 0:
